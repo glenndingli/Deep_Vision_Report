@@ -92,7 +92,12 @@ After all parameters tuning, the best performance we can get is:
 
 For this method, we have tried our best to improve the performance by just tuning hyperparameters. When the network loss is not going to change greatly, we get a relatively good result. The loss plot is shown:
 
-@TODO: RGB Loss Figure
+<p align="center">
+	<img src="figure/mrcnn/rgb_loss.png" height="250"/>
+</p>
+<p align = "center">
+<em>Figure 1. RGB input loss</em>
+</p>
 
 ### Input Fusion
 
@@ -100,21 +105,31 @@ For thr input fusion method, we inherit the parameter from RGB input model. Howe
 
 However, we can still see some big facade and roof are totally missing in the network. Maybe that is because we still need to make more efforts to include large features in the network. We will try padding and other augmenting methods to further improve the network.
 
-@TODO: RGBT Loss Figure
+<p align="center">
+	<img src="figure/mrcnn/input_fusion_loss.png" height="250"/>
+</p>
+<p align = "center">
+<em>Figure 2. RGB-Thermal input fusion loss</em>
+</p>
 
 ### Feature Fusion
 
 <p align="center">
-	<img src="figure/mrcnn_shortcut.png" height="250"/>
+	<img src="figure/mrcnn/mrcnn_shortcut.png" height="250"/>
 </p>
 <p align = "center">
-<em>Figure x. Mask RCNN shortcut network model</em>
+<em>Figure 3. Mask RCNN shortcut network model</em>
 </p>
 
 In this method, we have to trade off some network capacities. However, the result tells the ResNet 50 is not good enough for this tasks. The result we get is worse even than RGB result. After viewing the thermal images, we find sometimee the thermal data are quite confusing for network. It is like we are adding a noise channel to the network, which helps to detect from time to time. Hence, we will try to add a simple shortcut to the network with a similiar idea of ResNet. With this approach, thermal noise will be more helpful and easier to train.
 
 
-@TODO: RGBT Loss Figure
+<p align="center">
+	<img src="figure/mrcnn/feature_fusion_loss.png" height="250"/>
+</p>
+<p align = "center">
+<em>Figure 4. RGB-Thermal feature fusion loss</em>
+</p>
 
 
 
