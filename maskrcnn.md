@@ -104,7 +104,12 @@ However, we can still see some big facade and roof are totally missing in the ne
 
 ### Feature Fusion
 
-@TODO: Shortcut Figure
+<p align="center">
+	<img src="figure/mrcnn_shortcut.png" height="600"/>
+</p>
+<p align = "center">
+<em>Figure x. Mask RCNN shortcut network model</em>
+</p>
 
 In this method, we have to trade off some network capacities. However, the result tells the ResNet 50 is not good enough for this tasks. The result we get is worse even than RGB result. After viewing the thermal images, we find sometimee the thermal data are quite confusing for network. It is like we are adding a noise channel to the network, which helps to detect from time to time. Hence, we will try to add a simple shortcut to the network with a similiar idea of ResNet. With this approach, thermal noise will be more helpful and easier to train.
 
