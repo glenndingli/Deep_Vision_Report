@@ -113,7 +113,7 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
         </tr>
         <tr>
             <td> RGB </td>
-            <td> Mask-RCNN </td>
+            <td> MaskRCNN </td>
             <td> N/A </td>
             <td> 0.484 </td>
             <td> 0.759 </td>
@@ -125,7 +125,7 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
         </tr>
         <tr>
         	<td> RGBT </td>
-        	<td> Mask-RCNN </td>
+        	<td> MaskRCNN </td>
             <td> Input </td>
             <td> 0.472 </td>
             <td> 0.758 </td>
@@ -137,7 +137,7 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
         </tr>
         <tr>
         	<td> RGBT </td>
-        	<td> Mask-RCNN </td>
+        	<td> MaskRCNN </td>
         	<td> Feature </td>
             <td> 0.395 </td>
             <td> 0.680 </td>
