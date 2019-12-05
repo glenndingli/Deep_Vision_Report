@@ -20,8 +20,8 @@ We constructed our models based on three previous representative works of segmen
 
 ## Results and Discussion
 
-### Performance Evaluation
-Here we present the IOUs for baseline models using RGB and our adapted models fusing RGB with thermal information.
+### 1. Performance Evaluation
+Here we present the IOUs for baseline models using RGB and our adapted models fusing RGB with thermal information. 
 
 <table>
     <thead>
@@ -150,12 +150,29 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
     </tbody>
 </table>
 
++ **Large scale objects are predicted well** : From the results, we can see that our model can segmented the background, building roof and building facade very well. However, performance in predicting small scale objects are much worse. Particularly, for the roof equipment, the highest IOU is only 0.03. Therefore, there are more works to do to enable a good predition for both large scale and small scale objects.
+
++ **DeeplabV3 shows the best Performance** :With the DeeplabV3 Network fuzing RGB with thermal we achived the highest mIOU 0.538 among all different methods we have tried. It also has the best performance in all classes except the car. For the car, the MaskRCNN network using RGB data alone has the best performance. Overall, the U-Net shows the worst performance in our task.
+
++ **Thermal information shows limited help** :With the fusion of thermal information, we achieves better performance in DeeplabV3 experiments. The model reaches significantly better performance in predicting background, roof and facade. However, the fusion of thermal information does not help in predicting small scale objects, including cars and equipments. It is also worth noting that the fusion of thermal information significantly deteriorate the performance in the experiments with U-Net and Mask-RCNN.
 
 
-### Test Prediction Sample
+### 2 Prediction Sample
+Here we present two representative prediction examples from our test dataset.
+
 <p align="center">
 	<img src="figure/pd.png" height="400"/>
 </p>
+
++ **Different Network Shows Different Prediction Pattern** : In the example A, we saw the U-Net tends to generate a fuzzy predition. The U-Net has a typical fully convolution structure and did not apply additional methods to preserve long-range information. We think this characteristic makes the prediction fuzzy in certain cases. In the deeplabV3, the model uses astrous convolution to enable a larger view of field and use the image pyramid pooling to combine the short-range and long-range information. Thus, the model generates a smooth prediction of building facades and building roof in example A. The Mask-RCNN shows a good prediction on the cars. However, the Mask-RCNN miss the prediction of building roof. In design principle of Mask-RCNN, it needs to find the region of interest first. We think the region of interest for the roof is not found, which makes the prediction wrong.
+
++ **Thermal Information Helps Identifying Hidden Objects** : In the observation of example A, we found the DeeplabV3 with thermal information successfully predict two cars behind the tree and a equpiment on the ground (Entities in dashed Circle). These objects are missed by the DeeplabV3 without thermal information. We found these objects are highly distinct in the thermal image, which might be the reason for the prediction.
+
++ **Equipment is Hard to Predict** : In the example B, we present a failure prediction case. All our methods fail to recognize the equipment on the ground in the images. The models are tend to predict this object to other classes, like roof or facade. In some cases, the prediction is a mixture of different classes. One potential reseason is that this equpiment has very similar feature to a building. In addition, this type of equipment has very few representation in our training datasets. Overall, the shape, color and look of the equipment can be very diverse, which needs lot of data to learn the features. However, this specific class has lowest representation in our dataset. 
+
+
+
+
 
 
 
