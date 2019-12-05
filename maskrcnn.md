@@ -105,7 +105,7 @@ However, we can still see some big facade and roof are totally missing in the ne
 ### Feature Fusion
 
 <p align="center">
-	<img src="figure/mrcnn_shortcut.png" height="600"/>
+	<img src="figure/mrcnn_shortcut.png" height="250"/>
 </p>
 <p align = "center">
 <em>Figure x. Mask RCNN shortcut network model</em>
