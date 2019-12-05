@@ -23,10 +23,65 @@ We constructed our models based on three previous representative works of segmen
 ### Performance Evaluation
 Here we present the IOUs for baseline models using RGB and our adapted models fusing RGB with thermal information.
 
+<table>
+    <thead>
+        <tr>
+            <th>Input</th>
+            <th>Network</th>
+            <th>Fusion</th>
+            <th> mIOU </th>
+            <th> Background </th>
+            <th> Roof </th>
+            <th> Facade </th>
+            <th> Roof Equipment </th>
+            <th> Car </th>
+            <th> Ground Equipment </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td> RGB </td>
+            <td rowspan=3> U-Net </td>
+            <td> N/A </td>
+            <td> 0.442 </td>
+            <td> 0.806 </td>
+            <td> 0.771 </td>
+            <td> 0.653 </td>
+            <td> 0.018 </td>
+            <td> 0.305 </td>
+            <td> 0.096 </td>
+        </tr>
+        <tr>
+        	<td rowspan=2> RGBT </td>
+            <td> Input </td>
+            <td> 0.231 </td>
+            <td> 0.611 </td>
+            <td> 0.460 </td>
+            <td> 0.212 </td>
+            <td> 0.000 </td>
+            <td> 0.105 </td>
+            <td> 0.000 </td>
+        </tr>
+        <tr>
+        	<td> Feature </td>
+            <td> 0.250 </td>
+            <td> 0.610 </td>
+            <td> 0.458 </td>
+            <td> 0.326 </td>
+            <td> 0.000 </td>
+            <td> 0.102 </td>
+            <td> 0.000 </td>
+        </tr>
+    </tbody>
+</table>
+
+
+
 ### Test Prediction Sample
 <p align="center">
 	<img src="figure/pd.png" height="400"/>
 </p>
+
 
 
 
