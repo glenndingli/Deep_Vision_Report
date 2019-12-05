@@ -23,132 +23,17 @@ We constructed our models based on three previous representative works of segmen
 ### 1. Performance Evaluation
 Here we present the IOUs for baseline models using RGB and our adapted models fusing RGB with thermal information. 
 
-<table>
-    <thead>
-        <tr>
-            <th>Input</th>
-            <th>Network</th>
-            <th>Fusion</th>
-            <th> mIOU </th>
-            <th> BG </th>
-            <th> Roof </th>
-            <th> Facade </th>
-            <th> Car </th>
-            <th> Roof Equipment </th>
-            <th> Ground Equipment </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td> RGB </td>
-            <td> U-Net </td>
-            <td> N/A </td>
-            <td> 0.442 </td>
-            <td> 0.806 </td>
-            <td> 0.771 </td>
-            <td> 0.653 </td>
-            <td> 0.305 </td>
-            <td> 0.018 </td>
-            <td> 0.096 </td>
-        </tr>
-        <tr>
-        	<td> RGBT </td>
-        	<td> U-Net </td>
-            <td> Input </td>
-            <td> 0.231 </td>
-            <td> 0.611 </td>
-            <td> 0.460 </td>
-            <td> 0.212 </td>
-            <td> 0.105 </td>
-            <td> 0.000 </td>
-            <td> 0.000 </td>
-        </tr>
-        <tr>
-        	<td> RGBT </td>
-        	<td> U-Net </td>
-        	<td> Feature </td>
-            <td> 0.250 </td>
-            <td> 0.610 </td>
-            <td> 0.458 </td>
-            <td> 0.326 </td>
-            <td> 0.102 </td>
-            <td> 0.000 </td>
-            <td> 0.000 </td>
-        </tr>
-        <tr>
-            <td> RGB </td>
-            <td> DeepLabV3 </td>
-            <td> N/A </td>
-            <td> 0.455 </td>
-            <td> 0.867 </td>
-            <td> 0.854 </td>
-            <td> 0.682 </td>
-            <td> 0.327 </td>
-            <td> 0.028 </td>
-            <td> 0.135 </td>
-        </tr>
-        <tr>
-        	<td> RGBT </td>
-        	<td> DeepLabV3 </td>
-            <td> Input </td>
-            <td> 0.513 </td>
-            <td> 0.882 </td>
-            <td> 0.876 </td>
-            <td> 0.760 </td>
-            <td> 0.302 </td>
-            <td> 0.030<sup>*</sup> </td>
-            <td> 0.311<sup>*</sup> </td>
-        </tr>
-        <tr>
-        	<td> RGBT </td>
-        	<td> DeepLabV3 </td>
-        	<td> Feature </td>
-            <td> 0.538<sup>*</sup> </td>
-            <td> 0.907<sup>*</sup> </td>
-            <td> 0.931<sup>*</sup> </td>
-            <td> 0.815<sup>*</sup> </td>
-            <td> 0.338 </td>
-            <td> 0.025 </td>
-            <td> 0.280 </td>
-        </tr>
-        <tr>
-            <td> RGB </td>
-            <td> MaskRCNN </td>
-            <td> N/A </td>
-            <td> 0.484 </td>
-            <td> 0.759 </td>
-            <td> 0.703 </td>
-            <td> 0.610 </td>
-            <td> 0.633 </td>
-            <td> 0.000 </td>
-            <td> 0.200 </td>
-        </tr>
-        <tr>
-        	<td> RGBT </td>
-        	<td> MaskRCNN </td>
-            <td> Input </td>
-            <td> 0.472 </td>
-            <td> 0.758 </td>
-            <td> 0.696 </td>
-            <td> 0.611 </td>
-            <td> 0.677<sup>*</sup> </td>
-            <td> 0.000 </td>
-            <td> 0.089 </td>
-        </tr>
-        <tr>
-        	<td> RGBT </td>
-        	<td> MaskRCNN </td>
-        	<td> Feature </td>
-            <td> 0.395 </td>
-            <td> 0.680 </td>
-            <td> 0.678 </td>
-            <td> 0.534 </td>
-            <td> 0.407 </td>
-            <td> 0.000 </td>
-            <td> 0.072 </td>
-        </tr>
-    </tbody>
-</table>
+| Input | Network   | Fusion  |  mIOU  | Background |  Roof  | Facade |   Car  | Roof Equip.| Ground Equip. |
+|-------|-----------|---------|--------|------------|--------|--------|--------|------------|---------------|
+| RGB   | U-Net     |   N/A   | 0.442  | 0.806      | 0.771  | 0.653  | 0.305  | 0.018      | 0.096         |
+| RGBT  | U-Net     |  Input  | 0.231  | 0.611      | 0.460  | 0.212  | 0.105  | 0.000      | 0.000         |
+| RGBT  | U-Net     | Feature | 0.250  | 0.610      | 0.458  | 0.326  | 0.102  | 0.000      | 0.000         |
+| RGB   | DeeplabV3 |   N/A   | 0.455  | 0.867      | 0.854  | 0.682  | 0.327  | 0.028      | 0.135         |
+| RBGT  | DeeplabV3 |  Input  | 0.513  | 0.882      | 0.876  | 0.760  | 0.302  |**0.030**   |**0.311**      |
+| RGBT  | DeeplabV3 | Feature |**0.538**| **0.907** |**0.931**|**0.815**| 0.338  | 0.025    | 0.280         |
+| RGB   | Mask-RCNN |   N/A   | 0.484  | 0.759      | 0.703  | 0.610  | 0.633  | 0.000      | 0.200         |
+| RBGT  | Mask-RCNN |  Input  | 0.472  | 0.758      | 0.696  | 0.611  |**0.677**| 0.000     | 0.089         |
+| RGBT  | Mask-RCNN | Feature | 0.395  | 0.680      | 0.678  | 0.534  | 0.407  | 0.000      | 0.072         |
 
 + **Large scale objects are predicted well** : From the results, we can see that our model can segmented the background, building roof and building facade very well. However, performance in predicting small scale objects are much worse. Particularly, for the roof equipment, the highest IOU is only 0.03. Therefore, there are more works to do to enable a good predition for both large scale and small scale objects.
 
@@ -157,7 +42,7 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
 + **Thermal information shows limited help** :With the fusion of thermal information, we achieves better performance in DeeplabV3 experiments. The model reaches significantly better performance in predicting background, roof and facade. However, the fusion of thermal information does not help in predicting small scale objects, including cars and equipments. It is also worth noting that the fusion of thermal information significantly deteriorate the performance in the experiments with U-Net and Mask-RCNN.
 
 
-### 2 Prediction Sample
+### 2. Prediction Sample
 Here we present two representative prediction examples from our test dataset.
 
 <p align="center">
@@ -169,6 +54,16 @@ Here we present two representative prediction examples from our test dataset.
 + **Thermal Information Helps Identifying Hidden Objects** : In the observation of example A, we found the DeeplabV3 with thermal information successfully predict two cars behind the tree and a equpiment on the ground (Entities in dashed Circle). These objects are missed by the DeeplabV3 without thermal information. We found these objects are highly distinct in the thermal image, which might be the reason for the prediction.
 
 + **Equipment is Hard to Predict** : In the example B, we present a failure prediction case. All our methods fail to recognize the equipment on the ground in the images. The models are tend to predict this object to other classes, like roof or facade. In some cases, the prediction is a mixture of different classes. One potential reseason is that this equpiment has very similar feature to a building. In addition, this type of equipment has very few representation in our training datasets. Overall, the shape, color and look of the equipment can be very diverse, which needs lot of data to learn the features. However, this specific class has lowest representation in our dataset. 
+
+More examples:
+
+<p align="center">
+	<img src="figure/rs1.png" height="400"/>
+	<img src="figure/rs2.png" height="400"/>
+	<img src="figure/rs3.png" height="400"/>
+</p>
+
+
 
 
 
