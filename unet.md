@@ -14,9 +14,9 @@ For all the experiments, we set 512-256-128-64-32 channels with 2 upsampling rat
 # Ablation Results
 We train U-net on 256x256 and 512x512 rgb and rgbt images with or without pretrained backbone models. Disappointingly, rgbt images of 512x512 size cannot capture useful information and can only output blank image predictions, mainly due to fine-tune errors or we need to elegantly design the model structure. As shown in Table 1, we see that in rgb images, larger size can capture more features and thus yield better results (0.400 mIOU compared with 0.442 mIOU). Transfer learning with pretrained weights cannot yield better result in this specific case (0.304 mIOU compared with 0.400 mIOU) probably because that imagenet features are too far away from that of city spaces. Superisingly, adding thermal channels worses the situation a lot and get a much lower mIOU overall (0.231, 0.250), which can probably be improved by better design in the future.
 
-<div align = "center">
-*Emphasized* Table 1. Experiment Results
-</div align ="center">
+<p align = "center">
+<em> Table 1. Experiment Results </em>
+</p>
 
 | Channel |  Fusion | Size | Pretrain |  mIOU | Background |  Roof | Faced | Roof Equipment |  Car  | Ground Equipment |
 |:-------:|:-------:|:----:|:--------:|:-----:|:----------:|:-----:|:-----:|:--------------:|:-----:|:----------------:|
