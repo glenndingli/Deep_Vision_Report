@@ -2,7 +2,19 @@
 
 ## Experiment Setup
 
+### RGB Baseline
+We first trained a baseline DeepLabV3 model taking RGB images as input. We used ResNet-50 as network backbone and atrous_rates=6, 12, 18 for Atrous Spatial Pyramid Pooling(ASPP) layers. To achieve better results, we tried different sizes of input images and found 512x512 as the size with good performance and acceptable training speed. 
+
+### Input Fusion
+As mentioned, we tried two different fusion approaches of thermal information. For the first one, we concatenate RGB image and thermal image to get 4-channel input and put it into typical DeepLabV3 network. As we had more information from thermal channel, we attempted to add more filters in network backbone in order to learn more features. Also, due to the imbalance problem of our method, we applied weighted loss to force the network learn more about features of Class 3 and 5.
+
+### Feature Fusion
+We also designed another fusion structure, which has separate backbones for RGB input and thermal input. The network concatenates feature maps out from two backbone networks and then put the result into ASPP layers. The network structure has been shown in previous section. As thermal images only has one channel, to reduce the number of parameters, we tried simpler backbone networks. Similar to Input Fusion, we applied weighted loss as well.
+
 ## Experiment Results
+The following figures are an example of curves of training loss and mIOU on validation set. The IOU results on validation set of models with diffenrent settings are all shown in Table 1.
+
+
 | Input Data | Fusion Method               | weighted loss | mIOU   | Background | Roof   | Facade | Roof Equipment | Car    | Ground Equipment |
 |------------|-----------------------------|---------------|--------|------------|--------|--------|----------------|--------|------------------|
 | RGB        | N/A                         | N             | 0.4549 | 0.8674     | 0.8535 | 0.6819 | 0.0282         | 0.3268 | 0.1348           |
