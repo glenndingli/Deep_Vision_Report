@@ -1,6 +1,16 @@
-# Parameter Setting
+# Experiment Setup
+## RGB Baseline
+A vanilla baseline U-net model are applied to take RGB images as input. We used vgg16 as network backbone and 3x3 convolution with 2x2 strides as encoder layers. 
 
-For all the experiments, we set vgg16 as encoder backbone, and 512-256-128-64-32 upsampling channels as decoder, followed by 3x3 convolutional filters with 2x2 strides. Early stopping is adopted to prevent overfitting. We use Adam optimizer with learning rate 1e-3 and reduce learning rate on plateau. Cross Entropy loss is adopted.
+## Input Fusion
+Two different fusion approaches are applied to combine thermal information. As for input fusion, we concatenate RGB image and thermal image to get 4-channel input and put it into vanilla U-net. Since we had more information from thermal channel, we add more filters in network backbone in order to learn more features.
+
+## Feature Fusion
+As for feature fusion, we design another fusion structure, which has separate backbones for RGB input and thermal input. The network concatenates feature maps from two backbone networks and then put the result into decoder layers. To simple the problem, we use the same backbone (vgg16) for both routes.
+
+## Parameter Setting
+
+For all the experiments, we set 512-256-128-64-32 upsampling channels as decoder, followed by 3x3 convolutional filters with 2x2 strides. Early stopping is adopted to prevent overfitting. We use Adam optimizer with learning rate 1e-3 and reduce learning rate on plateau. Cross Entropy loss is adopted.
 
 # Ablation Results
 
@@ -15,28 +25,31 @@ We train U-net on 256x256 and 512x512 rgb and rgbt images with or without pretra
 |   RGBT  |  Input  |  256 |     N    | 0.231 |    0.611   | 0.460 | 0.212 |        0       | 0.105 |         0        |
 |   RGBT  | Feature |  256 |     N    | 0.250 |    0.610   | 0.458 | 0.326 |        0       | 0.102 |         0        |
 
+<div align = "center">
+Table 1. Experiment Results
+</div align ="center">
 
-The training procedure is shown as follows. We see that when thermal channel is added (Fig. 4, Fig. 5), the validation loss curve tends to be relatively constant or fluctuate in a certain range. And both training mIOU of rgbt drops in epoch 2 sharply and cannot come back.
-<div>
-Figure 1
+The training procedure is shown as follows. We see that when thermal channel is added (Fig. 4, Fig. 5), the validation loss curve tends to be relatively constant or fluctuate in a certain range. And both training mIOU of rgbt drops in epoch 2 sharply and cannot go up.
+<div align = "center">
 <p align="center">
 	<img src="figure/unet_rgb_256.png" height="600"/>
 </p>
-</div>
+Figure 1. 256x256 rgb Images without pretrain
 
 <p align="center">
 	<img src="figure/unet_rgb_512.png" height="600"/>
 </p>
-
+Figure 2. 512x512 rgb Images without pretrain
 <p align="center">
 	<img src="figure/unet_rgb_256_pretrain.png" height="600"/>
 </p>
-
+Figure 3. 256x256 rgb Images with pretrain
 <p align="center">
 	<img src="figure/unet_rgbt_input.png" height="600"/>
 </p>
-
+Figure 4. 256x256 rgbt Images without pretrain
 <p align="center">
 	<img src="figure/unet_rgbt_feature.png" height="600"/>
 </p>
-
+Figure 5. 256x256 rgbt Images without pretrain
+</div>
