@@ -33,8 +33,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <th> BG </th>
             <th> Roof </th>
             <th> Facade </th>
-            <th> Roof Equipment </th>
             <th> Car </th>
+            <th> Roof Equipment </th>
             <th> Ground Equipment </th>
         </tr>
     </thead>
@@ -47,8 +47,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.806 </td>
             <td> 0.771 </td>
             <td> 0.653 </td>
-            <td> 0.018 </td>
             <td> 0.305 </td>
+            <td> 0.018 </td>
             <td> 0.096 </td>
         </tr>
         <tr>
@@ -59,8 +59,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.611 </td>
             <td> 0.460 </td>
             <td> 0.212 </td>
-            <td> 0.000 </td>
             <td> 0.105 </td>
+            <td> 0.000 </td>
             <td> 0.000 </td>
         </tr>
         <tr>
@@ -71,8 +71,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.610 </td>
             <td> 0.458 </td>
             <td> 0.326 </td>
-            <td> 0.000 </td>
             <td> 0.102 </td>
+            <td> 0.000 </td>
             <td> 0.000 </td>
         </tr>
         <tr>
@@ -83,8 +83,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.867 </td>
             <td> 0.854 </td>
             <td> 0.682 </td>
-            <td> 0.028 </td>
             <td> 0.327 </td>
+            <td> 0.028 </td>
             <td> 0.135 </td>
         </tr>
         <tr>
@@ -95,8 +95,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.882 </td>
             <td> 0.876 </td>
             <td> 0.760 </td>
-            <td> 0.030 </td>
             <td> 0.302 </td>
+            <td> 0.030 </td>
             <td> 0.311 </td>
         </tr>
         <tr>
@@ -107,8 +107,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.907 </td>
             <td> 0.931 </td>
             <td> 0.815 </td>
-            <td> 0.025 </td>
             <td> 0.338 </td>
+            <td> 0.025 </td>
             <td> 0.280 </td>
         </tr>
         <tr>
@@ -119,8 +119,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.759 </td>
             <td> 0.703 </td>
             <td> 0.610 </td>
-            <td> 0.000 </td>
             <td> 0.633 </td>
+            <td> 0.000 </td>
             <td> 0.200 </td>
         </tr>
         <tr>
@@ -131,8 +131,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.758 </td>
             <td> 0.696 </td>
             <td> 0.611 </td>
-            <td> 0.000 </td>
             <td> 0.677 </td>
+            <td> 0.000 </td>
             <td> 0.089 </td>
         </tr>
         <tr>
@@ -143,8 +143,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.680 </td>
             <td> 0.678 </td>
             <td> 0.534 </td>
-            <td> 0.000 </td>
             <td> 0.407 </td>
+            <td> 0.000 </td>
             <td> 0.072 </td>
         </tr>
     </tbody>
