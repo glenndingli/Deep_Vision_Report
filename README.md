@@ -30,7 +30,7 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <th>Network</th>
             <th>Fusion</th>
             <th> mIOU </th>
-            <th> Background </th>
+            <th> Back ground </th>
             <th> Roof </th>
             <th> Facade </th>
             <th> Roof Equipment </th>
@@ -102,7 +102,7 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
         <tr>
         	<td> RGBT </td>
         	<td> DeepLabV3 </td>
-        	<td style="backcolor:#DC143C"> Feature </td>
+        	<td> Feature </td>
             <td> 0.538 </td>
             <td> 0.907 </td>
             <td> 0.931 </td>
@@ -113,7 +113,7 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
         </tr>
         <tr>
             <td> RGB </td>
-            <td rowspan=3> Mask-RCNN </td>
+            <td> Mask-RCNN </td>
             <td> N/A </td>
             <td> 0.484 </td>
             <td> 0.759 </td>
@@ -124,7 +124,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.200 </td>
         </tr>
         <tr>
-        	<td rowspan=2> RGBT </td>
+        	<td> RGBT </td>
+        	<td> Mask-RCNN </td>
             <td> Input </td>
             <td> 0.472 </td>
             <td> 0.758 </td>
@@ -135,6 +136,8 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.089 </td>
         </tr>
         <tr>
+        	<td> RGBT </td>
+        	<td> Mask-RCNN </td>
         	<td> Feature </td>
             <td> 0.395 </td>
             <td> 0.680 </td>
