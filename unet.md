@@ -1,6 +1,6 @@
 # Experiment Setup
 ## RGB Baseline
-A vanilla baseline U-net model are applied to take RGB images as input. We used vgg16 as network backbone and 3x3 convolution with 2x2 strides as encoder layers. 
+A vanilla baseline U-net model are implemented to take RGB images as input. We used vgg16 as network backbone and 3x3 convolution with 2x2 strides as encoder layers and 512-256-128-64-32 channels with 2 upsampling rate as decoder layers, followed by 3x3 convolution with 2x2 strides each layer. 
 
 ## Input Fusion
 Two different fusion approaches are applied to combine thermal information. As for input fusion, we concatenate RGB image and thermal image to get 4-channel input and put it into vanilla U-net. Since we had more information from thermal channel, we add more filters in network backbone in order to learn more features.
@@ -9,11 +9,9 @@ Two different fusion approaches are applied to combine thermal information. As f
 As for feature fusion, we add an alternative path with separate backbone for thermal input. The network fuses feature maps from two backbone routes together and then put the concatenated feature maps into decoder layers. To simplify the problem, we use the same backbone (vgg16) for both routes.
 
 ## Parameter Setting
-
-For all the experiments, we set 512-256-128-64-32 upsampling channels as decoder, followed by 3x3 convolutional filters with 2x2 strides. Early stopping is adopted to prevent overfitting. We use Adam optimizer with learning rate 1e-3 and reduce learning rate on plateau. Cross Entropy loss is adopted.
+For all the experiments, we set 512-256-128-64-32 channels with 2 upsampling rate as decoder, followed by 3x3 convolutional filters with 2x2 strides each layer. Early stopping is adopted to prevent overfitting. We use Adam optimizer with learning rate 1e-3 and reduce learning rate on plateau with rate 0.1. Cross Entropy is adopted as loss function.
 
 # Ablation Results
-
 We train U-net on 256x256 and 512x512 rgb and rgbt images with or without pretrained backbone models. Disappointingly, rgbt images of 512x512 size cannot capture useful information and can only output blank image predictions, mainly due to fine-tune errors or we need to elegantly design the model structure. As shown in Table 1, we see that in rgb images, larger size can capture more features and thus yield better results (0.400 mIOU compared with 0.442 mIOU). Transfer learning with pretrained weights cannot yield better result in this specific case (0.304 mIOU compared with 0.400 mIOU) probably because that imagenet features are too far away from that of city spaces. Superisingly, adding thermal channels worses the situation a lot and get a much lower mIOU overall (0.231, 0.250), which can probably be improved by better design in the future.
 
 <div align = "center">
@@ -29,27 +27,25 @@ We train U-net on 256x256 and 512x512 rgb and rgbt images with or without pretra
 |   RGBT  | Feature |  256 |     N    | 0.250 |    0.610   | 0.458 | 0.326 |        0       | 0.102 |         0        |
 
 
-The training procedure is shown as follows. We see that when thermal channel is added (Fig. 4, Fig. 5), the validation loss curve tends to be relatively constant or fluctuate in a certain range. And both training mIOU of rgbt drops in epoch 2 sharply and cannot go up.
-<div align = "center">
+The training procedure is shown as follows. We see that when thermal channel is added (Fig. 4, Fig. 5), the validation loss curve tends to be relatively constant or fluctuate in a certain small range. And both training mIOU of rgbt drops in epoch 2 sharply and cannot go up.
 <p align="center">
 	<img src="figure/unet_rgb_256.png" height="600"/>
+<em>Figure 1. 256x256 rgb Images without pretrain</em>
 </p>
-*Emphasized* Figure 1. 256x256 rgb Images without pretrain
 
 <p align="center">
 	<img src="figure/unet_rgb_512.png" height="600"/>
+<em>Figure 2. 512x512 rgb Images without pretrain</em>
 </p>
-*Emphasized* Figure 2. 512x512 rgb Images without pretrain
 <p align="center">
 	<img src="figure/unet_rgb_256_pretrain.png" height="600"/>
+<em>Figure 3. 256x256 rgb Images with pretrain</em>
 </p>
-*Emphasized* Figure 3. 256x256 rgb Images with pretrain
 <p align="center">
 	<img src="figure/unet_rgbt_input.png" height="600"/>
+<em>Figure 4. 256x256 rgbt Images without pretrain</em>
 </p>
-*Emphasized* Figure 4. 256x256 rgbt Images without pretrain
 <p align="center">
 	<img src="figure/unet_rgbt_feature.png" height="600"/>
+<em>Figure 5. 256x256 rgbt Images without pretrain</em>
 </p>
-*Emphasized* Figure 5. 256x256 rgbt Images without pretrain
-</div>
