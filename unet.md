@@ -30,22 +30,27 @@ We train U-net on 256x256 and 512x512 rgb and rgbt images with or without pretra
 The training procedure is shown as follows. We see that when thermal channel is added (Fig. 4, Fig. 5), the validation loss curve tends to be relatively constant or fluctuate in a certain small range. And both training mIOU of rgbt drops in epoch 2 sharply and cannot go up.
 <p align="center">
 	<img src="figure/unet_rgb_256.png" height="600"/>
+
 <em>Figure 1. 256x256 rgb Images without pretrain</em>
 </p>
 
 <p align="center">
 	<img src="figure/unet_rgb_512.png" height="600"/>
+
 <em>Figure 2. 512x512 rgb Images without pretrain</em>
 </p>
 <p align="center">
 	<img src="figure/unet_rgb_256_pretrain.png" height="600"/>
+
 <em>Figure 3. 256x256 rgb Images with pretrain</em>
 </p>
 <p align="center">
 	<img src="figure/unet_rgbt_input.png" height="600"/>
+
 <em>Figure 4. 256x256 rgbt Images without pretrain</em>
 </p>
 <p align="center">
 	<img src="figure/unet_rgbt_feature.png" height="600"/>
+
 <em>Figure 5. 256x256 rgbt Images without pretrain</em>
 </p>
