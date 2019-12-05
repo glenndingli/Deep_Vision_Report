@@ -59,8 +59,8 @@ More examples:
 
 <p align="center">
 	<img src="figure/rs1.png" height="400"/>
-	<img src="figure/rs2.png" height="500"/>
-	<img src="figure/rs3.png" height="267"/>
+	<img src="figure/rs2.png" height="515"/>
+	<img src="figure/rs3.png" height="270"/>
 </p>
 
 
