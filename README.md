@@ -58,9 +58,7 @@ Here we present two representative prediction examples from our test dataset.
 More examples:
 
 <p align="center">
-	<img src="figure/rs1.png" height="400"/>
-	<img src="figure/rs2.png" height="518"/>
-	<img src="figure/rs3.png" height="272"/>
+	<img src="figure/rr.png" height="1190"/>
 </p>
 
 
