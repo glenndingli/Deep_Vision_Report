@@ -75,8 +75,8 @@ Then we put our eye on reduce the network size. In other words, we have to trade
 
 ```Python
 BACKBONE_NETWORK = 'ResNet50' -> 'ResNet 101'
-Mask_SIZE = (512, 512) -> (128, 128)
-ROI_Proposal_Intance = 512 -> 128
+MASK_SIZE = (512, 512) -> (128, 128)
+ROI_PROPOSAL_INTANCE = 512 -> 128
 ```
 
 After all parameters tuning, the best performance we can get is:
@@ -87,6 +87,29 @@ After all parameters tuning, the best performance we can get is:
 
 
 ## Discussion and Conclusion 
+
+### RGB Input
+
+For this method, we have tried our best to improve the performance by just tuning hyperparameters. When the network loss is not going to change greatly, we get a relatively good result. The loss plot is shown:
+
+@TODO: RGB Loss Figure
+
+### Input Fusion
+
+For thr input fusion method, we inherit the parameter from RGB input model. However, we also used various training tricks including the weighted loss on different part of the network. Since Mask RCNN is a huge network, training from end to end is slow to converge. However, our dataset is very different to the normal ones (e.g. COCO and ImageNet). We have to train our own parameters. With our effort, the result also seems reasonable and great.
+
+However, we can still see some big facade and roof are totally missing in the network. Maybe that is because we still need to make more efforts to include large features in the network. We will try padding and other augmenting methods to further improve the network.
+
+@TODO: RGBT Loss Figure
+
+### Feature Fusion
+
+@TODO: Shortcut Figure
+
+In this method, we have to trade off some network capacities. However, the result tells the ResNet 50 is not good enough for this tasks. The result we get is worse even than RGB result. After viewing the thermal images, we find sometimee the thermal data are quite confusing for network. It is like we are adding a noise channel to the network, which helps to detect from time to time. Hence, we will try to add a simple shortcut to the network with a similiar idea of ResNet. With this approach, thermal noise will be more helpful and easier to train.
+
+
+@TODO: RGBT Loss Figure
 
 
 
