@@ -103,7 +103,7 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
         	<td> RGBT </td>
         	<td> DeepLabV3 </td>
         	<td> Feature </td>
-            <td> <span style="color:red">0.538</span> </td>
+            <td> 0.538<sup>*</sup> </td>
             <td> <span style="color:red">0.907</span> </td>
             <td> <span style="color:red">0.931</span> </td>
             <td> <span style="color:red">0.815</span> </td>
@@ -131,7 +131,7 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.758 </td>
             <td> 0.696 </td>
             <td> 0.611 </td>
-            <td> <span style="color:red">0.677</span> </td>
+            <td> 0.677 </td>
             <td> 0.000 </td>
             <td> 0.089 </td>
         </tr>
