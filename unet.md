@@ -5,3 +5,12 @@ For all the experiments, we set vgg16 as encoder backbone, and 512-256-128-64-32
 # Ablation Results
 
 We train U-net on 256x256 and 512x512 images.
+
+
+| Channel |  Fusion | Size | Pretrain |  mIOU | Background | Roof  | Faced | Roof Equipment | Car   | Ground Equipment |
+|:-------:|:-------:|:----:|:--------:|:-----:|------------|-------|-------|----------------|-------|------------------|
+|   RGB   |   N/A   |  512 |     N    | 0.442 | 0.806      | 0.771 | 0.653 | 0.018          | 0.305 | 0.096            |
+|   RGB   |   N/A   |  256 |     N    | 0.400 | 0.746      | 0.663 | 0.625 | 0.002          | 0.287 | 0.059            |
+|   RGB   |   N/A   |  256 |     Y    | 0.304 | 0.667      | 0.505 | 0.477 | 0              | 0.156 | 0.019            |
+| RGBT    | Input   | 256  |     N    | 0.231 | 0.611      | 0.460 | 0.212 | 0              | 0.105 | 0                |
+| RGBT    | Feature | 256  |     N    | 0.250 | 0.610      | 0.458 | 0.326 | 0              | 0.102 | 0                |
