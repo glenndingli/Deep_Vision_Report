@@ -72,6 +72,72 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <td> 0.102 </td>
             <td> 0.000 </td>
         </tr>
+        <tr>
+            <td> RGB </td>
+            <td rowspan=3> DeepLabV3 </td>
+            <td> N/A </td>
+            <td> 0.455 </td>
+            <td> 0.867 </td>
+            <td> 0.854 </td>
+            <td> 0.682 </td>
+            <td> 0.028 </td>
+            <td> 0.327 </td>
+            <td> 0.135 </td>
+        </tr>
+        <tr>
+        	<td rowspan=2> RGBT </td>
+            <td> Input </td>
+            <td> 0.513 </td>
+            <td> 0.882 </td>
+            <td> 0.876 </td>
+            <td> 0.760 </td>
+            <td> 0.030 </td>
+            <td> 0.302 </td>
+            <td> 0.311 </td>
+        </tr>
+        <tr>
+        	<td bgcolor='red'> Feature </td>
+            <td> 0.538 </td>
+            <td> 0.907 </td>
+            <td> 0.931 </td>
+            <td> 0.815 </td>
+            <td> 0.025 </td>
+            <td> 0.338 </td>
+            <td> 0.280 </td>
+        </tr>
+        <tr>
+            <td> RGB </td>
+            <td rowspan=3> Mask-RCNN </td>
+            <td> N/A </td>
+            <td> 0.484 </td>
+            <td> 0.759 </td>
+            <td> 0.703 </td>
+            <td> 0.610 </td>
+            <td> 0.000 </td>
+            <td> 0.633 </td>
+            <td> 0.200 </td>
+        </tr>
+        <tr>
+        	<td rowspan=2> RGBT </td>
+            <td> Input </td>
+            <td> 0.472 </td>
+            <td> 0.758 </td>
+            <td> 0.696 </td>
+            <td> 0.611 </td>
+            <td> 0.000 </td>
+            <td> 0.677 </td>
+            <td> 0.089 </td>
+        </tr>
+        <tr>
+        	<td> Feature </td>
+            <td> 0.395 </td>
+            <td> 0.680 </td>
+            <td> 0.678 </td>
+            <td> 0.534 </td>
+            <td> 0.000 </td>
+            <td> 0.407 </td>
+            <td> 0.072 </td>
+        </tr>
     </tbody>
 </table>
 
