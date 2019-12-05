@@ -18,6 +18,21 @@ The images in our study is captured by a camera, FLIR Duo Pro R, mounted on a dr
 
 We constructed our models based on three previous representative works of segmentation task: U-Net, DeepLabV3 and MaskRCNN. We mainly tried two approaches to fuze the thermal information with the RGB information. In input fusion, we concatenate the thermal image with RGB image as the input of the network. In feature fusion, the thermal image and RGB image are abstracted into feature maps separately and the feature maps are concatenated at certain points. For the feature fusion, we also tried different variants of the structure. The details of experiments are included in sperate pages: [U-Net Experiment](unet.md), [DeepLabV3 Experiment](deeplabv3.md), [Mask-RCNN Experiment](maskrcnn.md).
 
++ **U-Net Based Model Structrue**
+<p align="center">
+	<img src="figure/unetfig.png" height="200"/>
+</p>
+
++ **DeepLabV3 Based Model Structure**
+<p align="center">
+	<img src="figure/deeplabfig.png" height="400"/>
+</p>
+
++ **Mask-RCNN Based Model Structure**
+<p align="center">
+	<img src="figure/maskrcnnfig.png" height="200"/>
+</p>
+
 ## Results and Discussion
 
 ### 1. Performance Evaluation
