@@ -34,3 +34,60 @@ After all the parameters are set, we test the IoUs for 5+1 classes again, and ge
 | RGB        | N      | 0.3176 | 0.5363     | 0.4550 | 0.4124 | 0           | 0.4452 | 0.0564        |
 | RGBT       | Y      | 0.4421 | 0.7243     | 0.6105 | 0.6115 | 0           | 0.4889 | 0.2174        |
 
+### Feature Map Fusion
+
+After we get the best performance possible for RGB input, we attempt to add one more input channel. 
+
+With the previous RGB parameters, we get a worse performance. After we look into from which part the Mask RCNN loss comes, we find the ```RPN_BBOX_LOSS``` and ```MRCNN_BBOX_LOSS``` is relatively high to others, and they are still slowly converging to a lower value. To speed up the training, we set a different weight to different loss parts. 
+
+#### Stage 1:
+
+```Python
+RPN_BBOX_LOSS = 1 -> 4
+MRCNN_BBOX_LOSS = 1 -> 3.2
+MRCNN_MASK_LOSS = 1 -> 2
+```
+
+#### Stage 2:
+After stage 1, the losses all converges and start to lower very slowly, we then increase the loss again. 
+
+```Python
+RPN_BBOX_LOSS = 4 -> 6
+MRCNN_BBOX_LOSS = 3.2 -> 4
+MRCNN_MASK_LOSS = 2 -> 3
+```
+
+After the two stages, we find that the loss is not going to change whatever we set the loss weight. Then we also detect the model on the test dataset, and get the IoU shown below.
+
+| Input Data | Stage | mIOU    | Background | Roof    | Facade  | Roof Equip\. | Car     | Ground Equip\. |
+|------------|-------|---------|------------|---------|---------|--------------|---------|----------------|
+| RGBT       | 1     | 0\.4458 | 0\.7146    | 0\.5813 | 0\.5953 | 0            | 0\.6542 | 0\.1294        |
+| RGBT       | 2     | 0\.4710 | 0\.7708    | 0\.7628 | 0\.6110 | 0            | 0\.6080 | 0\.0736        |
+
+
+### Feature Fusion
+
+After we try our best on the thermal channel input fusion, we come up with the idea on how to better extract the thermal information and at the same time give less confusion on the RGB features. The way we try on Mask RCNN is to fusion the RGB feature maps with the thermal feature maps. In this way, we expect the network can handle the feature maps as what is needed for detection and region proposal. 
+
+However, when we try to add one parallel backbone ResNet 101, we find the hardware can not handle this large network, even the largest GPU we can have on GCP with 16 GB memory. We have attempted to use various ways to increase the hardware capacity, for instance to increase the number of GPUs, to add more RAM for the PC, and to use better GPU. None of them worked. 
+
+Then we put our eye on reduce the network size. In other words, we have to trade off some network capacity for better thermal information extraction. To reduce the network, we reset the parameters as below:
+
+```Python
+BACKBONE_NETWORK = 'ResNet50' -> 'ResNet 101'
+Mask_SIZE = (512, 512) -> (128, 128)
+ROI_Proposal_Intance = 512 -> 128
+```
+
+After all parameters tuning, the best performance we can get is:
+
+| Input Data | mIOU    | Background | Roof    | Facade  | Roof Equip\. | Car     | Ground Equip\. |
+|------------|---------|------------|---------|---------|--------------|---------|----------------|
+| RGBT       | 0\.3951 | 0\.6795    | 0\.6781 | 0\.5343 | 0            | 0\.4065 | 0\.0724        |
+
+
+## Discussion and Conclusion 
+
+
+
+
