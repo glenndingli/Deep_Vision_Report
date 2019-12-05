@@ -6,7 +6,7 @@ A vanilla baseline U-net model are applied to take RGB images as input. We used 
 Two different fusion approaches are applied to combine thermal information. As for input fusion, we concatenate RGB image and thermal image to get 4-channel input and put it into vanilla U-net. Since we had more information from thermal channel, we add more filters in network backbone in order to learn more features.
 
 ## Feature Fusion
-As for feature fusion, we design another fusion structure, which has separate backbones for RGB input and thermal input. The network concatenates feature maps from two backbone networks and then put the result into decoder layers. To simple the problem, we use the same backbone (vgg16) for both routes.
+As for feature fusion, we add an alternative path with separate backbone for thermal input. The network fuses feature maps from two backbone routes together and then put the concatenated feature maps into decoder layers. To simplify the problem, we use the same backbone (vgg16) for both routes.
 
 ## Parameter Setting
 
@@ -14,7 +14,7 @@ For all the experiments, we set 512-256-128-64-32 upsampling channels as decoder
 
 # Ablation Results
 
-We train U-net on 256x256 and 512x512 rgb and rgbt images with or without pretrained backbone models. We fuse thermal channel with rgb channels either by concatenation during input or adding an alternative path (identical to rgb path) and fuse feature channels later on. Disappointingly, rgbt images of 512x512 size cannot capture useful information and can only output blank image predictions, mainly due to fine-tune errors or need to elegantly design the model. As shown in Table 1, we see that in rgb images, larger size can yield more feature captions and thus better results (0.400 mIOU compared with 0.442 mIOU). Transfer learning cannot yield better result in this specific case (0.304 mIOU compared with 0.400 mIOU) probably because that imagenet features are too far away from city spaces. Superisingly, adding thermal channels worses the situation a lot and get a much lower mIOU overall (0.231, 0.250), which can possibly be improved by better design in the future.
+We train U-net on 256x256 and 512x512 rgb and rgbt images with or without pretrained backbone models. Disappointingly, rgbt images of 512x512 size cannot capture useful information and can only output blank image predictions, mainly due to fine-tune errors or we need to elegantly design the model structure. As shown in Table 1, we see that in rgb images, larger size can capture more features and thus yield better results (0.400 mIOU compared with 0.442 mIOU). Transfer learning with pretrained weights cannot yield better result in this specific case (0.304 mIOU compared with 0.400 mIOU) probably because that imagenet features are too far away from that of city spaces. Superisingly, adding thermal channels worses the situation a lot and get a much lower mIOU overall (0.231, 0.250), which can probably be improved by better design in the future.
 
 <div align = "center">
 *Emphasized* Table 1. Experiment Results
