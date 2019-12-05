@@ -30,7 +30,7 @@ Here we present the IOUs for baseline models using RGB and our adapted models fu
             <th>Network</th>
             <th>Fusion</th>
             <th> mIOU </th>
-            <th> Background </th>
+            <th> BG </th>
             <th> Roof </th>
             <th> Facade </th>
             <th> Roof Equipment </th>
