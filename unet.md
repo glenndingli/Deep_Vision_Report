@@ -40,4 +40,3 @@ Figure 1
 	<img src="figure/unet_rgbt_feature.png" height="600"/>
 </p>
 
-
