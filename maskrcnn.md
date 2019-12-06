@@ -8,7 +8,7 @@ Similar to the U-net and DeepLabV3, we did different experiments on Mask RCNN. F
 
 ## Experiment Details
 
-Based on the above introduction, we first attempted to add one more thermal channel input, and then fusioned the feature maps of RGB and thermal inputs. Hence, we set up experiments based on the three main different methods.
+Based on the above introduction, we first attempted to add one more thermal channel input, and then fused the feature maps of RGB and thermal inputs. Hence, we set up experiments based on the three main different methods.
 
 ### Input Fusion
 
@@ -27,7 +27,7 @@ For the RGB images as input, it is just a simple semantic segmentation task. To 
 | Image_size					| (512, 512) |
 | DETECTION_MIN_CONFIDENCE		| 0.9|
 
-After all the parameters are set, we test the IoUs for 5+1 classes again, and get the result:
+After all the parameters were set, we tested the IoUs for 5+1 classes again, and obtained the result:
 
 | Input Data | Tuning | mIOU   | Background | Roof   | Facade | Roof Equip. | Car    | Ground Equip. |
 |------------|--------|--------|------------|--------|--------|-------------|--------|---------------|
@@ -38,7 +38,7 @@ After all the parameters are set, we test the IoUs for 5+1 classes again, and ge
 
 After we got the best performance possible for RGB input, we attempted to add one more input channel. 
 
-With the previous RGB parameters, we got a worse performance. After we looked into from which part the Mask RCNN loss come, we found the ```RPN_BBOX_LOSS``` and ```MRCNN_BBOX_LOSS``` was relatively high to others, and they were still slowly converging to a lower value. To speed up the training, we set a different weight to different loss parts. 
+With the previous RGB parameters, we got a worse performance. After we looked into from which part the Mask RCNN loss come, we found the ```RPN_BBOX_LOSS``` and ```MRCNN_BBOX_LOSS``` were relatively high to others, and they were still slowly converging to a lower value. To speed up the training, we set a different weight to different loss parts. 
 
 #### Stage 1:
 
@@ -67,11 +67,11 @@ After the two stages, we found that the loss was not going to change whatever we
 
 ### Feature Fusion
 
-After we tried our best on the thermal channel input fusion, we come up with the idea on how to better extract the thermal information and at the same time give less confusion on the RGB features. The way we tried on Mask RCNN was to fusion the RGB feature maps with the thermal feature maps. In this way, we expected the network could handle the feature maps as what was needed for detection and region proposal. 
+After we tried our best on the thermal channel input fusion, we came up with the idea on how to better extract the thermal information and at the same time give less confusion on the RGB features. The way we tried on Mask RCNN was to fuse the RGB feature maps with the thermal feature maps. In this way, we expected the network could handle the feature maps as what was needed for detection and region proposal. 
 
 However, when we tried to add one parallel backbone ResNet 101, we find the hardware can not handle this large network, even the largest GPU we can have on GCP with 16 GB memory. We have attempted to use various ways to increase the hardware capacity, for instance to increase the number of GPUs, to add more RAM for the PC, and to use better GPU. None of them worked. 
 
-Then we put our eye on reduce the network size. In other words, we had to trade off some network capacity for better thermal information extraction. To reduce the network, we reset the parameters as below:
+Then we put our eye on reducing the network size. In other words, we had to trade off some network capacity for better thermal information extraction. To reduce the network, we reset the parameters as below:
 
 ```Python
 BACKBONE_NETWORK = 'ResNet50' -> 'ResNet 101'
@@ -101,9 +101,9 @@ For this method, we have tried our best to improve the performance by just tunin
 
 ### Input Fusion
 
-For thr input fusion method, we inherit the parameter from RGB input model. In addition, we also used various training tricks including the weighted loss on different part of the network. Since Mask RCNN is a huge network, training from end to end is slow to converge. However, our dataset is very different to the normal ones (e.g. COCO and ImageNet). We have to train our own parameters from scratch. With our effort, the result also seems reasonable and great.
+For the input fusion method, we inherit the parameter from RGB input model. In addition, we also used various training tricks including the weighted loss on different part of the network. Since Mask RCNN is a huge network, training from end to end is slow to converge. However, our dataset is very different to the normal ones (e.g. COCO and ImageNet). We have to train our own parameters from scratch. With our effort, the result also seems reasonable and great.
 
-However, we can still see some big facade and roof are totally missing in the network. Maybe that is because we still need to make more efforts to include large features in the network. We will try padding and other augmenting methods to further improve the network in the future.
+However, we can still see some big facade and roof are totally missing in the network. This is because we still need to make more efforts to include large features in the network. We will try padding and other augmenting methods to further improve the network in the future.
 
 <p align="center">
 	<img src="figure/mrcnn/input_fusion_loss.png" height="250"/>
@@ -121,7 +121,7 @@ However, we can still see some big facade and roof are totally missing in the ne
 <em>Figure 3. Mask RCNN shortcut network model</em>
 </p>
 
-In this method, we have to trade off some network capacities. However, the result tells the ResNet 50 is not good enough for this tasks. The result we get is worse even than RGB result. After viewing the thermal images, we find sometimee the thermal data are quite confusing for network. It is like we are adding a noise channel to the network, which helps to detect from time to time. Hence, we will try to add a simple shortcut to the network with a similiar idea of ResNet. With this approach, thermal noise will be more helpful and easier to train.
+In this method, we had to trade off some network capacities. However, the result showed the ResNet 50 was not good enough for this tasks. The result we obtained was worse even than RGB result. After viewing the thermal images, we found sometimes the thermal data was quite confusing for network. It was like we added a noise channel to the network, which helps to detect from time to time. Hence, we will try to add a simple shortcut to the network with a similiar idea of ResNet. With this approach, thermal noise will be more helpful and easier to train.
 
 
 <p align="center">
