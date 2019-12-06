@@ -1,7 +1,6 @@
 # DeepLabV3
 
 ## Experiment Setup
-Acknowledgement
 
 ### RGB Baseline
 We first trained a baseline DeepLabV3 model taking RGB images as input. We used ResNet-50 as network backbone and atrous_rates=6, 12, 18 for Atrous Spatial Pyramid Pooling(ASPP) layers. To achieve better results, we tried different sizes of input images and found 512x512 as the size with good performance and acceptable training speed. 
