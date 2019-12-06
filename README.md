@@ -52,7 +52,7 @@ We constructed our models based on three previous representative works of segmen
 Here we present the IOUs for baseline models using RGB and our adapted models fusing RGB with thermal information. 
 
 | Input | Network   | Fusion  |  mIOU  | Background |  Roof  | Facade |   Car  | Roof Equip.| Ground Equip. |
-|-------|-----------|---------|--------|------------|--------|--------|--------|------------|---------------|
+|:-----:|:---------:|:-------:|:------:|:----------:|:------:|:------:|:------:|:----------:|:-------------:|
 | RGB   | U-Net     |   N/A   | 0.442  | 0.806      | 0.771  | 0.653  | 0.305  | 0.018      | 0.096         |
 | RGBT  | U-Net     |  Input  | 0.231  | 0.611      | 0.460  | 0.212  | 0.105  | 0.000      | 0.000         |
 | RGBT  | U-Net     | Feature | 0.250  | 0.610      | 0.458  | 0.326  | 0.102  | 0.000      | 0.000         |
