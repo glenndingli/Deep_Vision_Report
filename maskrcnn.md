@@ -10,7 +10,7 @@ Similar to the U-net and DeepLabV3, we did different experiments on Mask RCNN. F
 
 Based on the above introduction, we first attempted to add one more thermal channel input, and then fused the feature maps of RGB and thermal inputs. Hence, we set up experiments based on the three main different methods.
 
-Before diving into details, we shall clarify that we adapted the code of Mask RCNN from ![this](https://github.com/matterport/Mask_RCNN) Git repo.
+Before diving into details, we shall clarify that we adapted the code of Mask RCNN from [this](https://github.com/matterport/Mask_RCNN) Git repo.
 
 ### Input Fusion
 
