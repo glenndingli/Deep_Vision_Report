@@ -4,15 +4,15 @@
 
 In this task, we used a classic semantic segmentation framework, Mask RCNN. Different from the previous approaches in this project, Mask RCNN needs to detect some regions of interests, and then classify the detected regions. This approaches can be used to conduct instance segmentation. Instance segmentation can treat multiple objects of the same class as separated individuals, but the previous approaches, like U-net and DeepLabV3, treat multiple objects of the same class as a whole entity. We planned to use this approach because this approach can solve the problem in an alternative way. We planned to explore how different the algorithm work. 
 
-Similar to the U-net and DeepLabV3, we did different experiments on Mask RCNN. First, we used Mask RCNN directly on the RGB images. Second, we brutally 
+Similar to the U-net and DeepLabV3, we did different experiments on Mask RCNN. First, we used Mask RCNN directly on the RGB images. Second, we brutally concatenated the thermal channel onto the end of the RGB channels. This method is input fusion. Third, we changed the network of the algorithm. This method is feature fusion.
 
 ## Experiment Details
 
-Based on the above introduction, we first attempt to add one more thermal channel input, and then fusion the feature maps of RGB and thermal inputs. Hence, we set up experiments based on the three main different methods.
+Based on the above introduction, we first attempted to add one more thermal channel input, and then fusioned the feature maps of RGB and thermal inputs. Hence, we set up experiments based on the three main different methods.
 
 ### Input Fusion
 
-For the RGB images as input, it is just a simple semantic segmentation task. To do that, we first simply use Mask RCNN with the default parameters. Then, it is intuitive to optimize for better parameters. After a set of experiments, we finalize the parameters as:
+For the RGB images as input, it is just a simple semantic segmentation task. To do that, we first simply used Mask RCNN with the default parameters. Then, it is intuitive to optimize for better parameters. After a set of experiments, we finalized the parameters as:
 
 | parameters 					| value	| 
 |-------------------------------|-------|
@@ -36,9 +36,9 @@ After all the parameters are set, we test the IoUs for 5+1 classes again, and ge
 
 ### Feature Map Fusion
 
-After we get the best performance possible for RGB input, we attempt to add one more input channel. 
+After we got the best performance possible for RGB input, we attempted to add one more input channel. 
 
-With the previous RGB parameters, we get a worse performance. After we look into from which part the Mask RCNN loss comes, we find the ```RPN_BBOX_LOSS``` and ```MRCNN_BBOX_LOSS``` is relatively high to others, and they are still slowly converging to a lower value. To speed up the training, we set a different weight to different loss parts. 
+With the previous RGB parameters, we got a worse performance. After we looked into from which part the Mask RCNN loss come, we found the ```RPN_BBOX_LOSS``` and ```MRCNN_BBOX_LOSS``` was relatively high to others, and they were still slowly converging to a lower value. To speed up the training, we set a different weight to different loss parts. 
 
 #### Stage 1:
 
@@ -49,7 +49,7 @@ MRCNN_MASK_LOSS = 1 -> 2
 ```
 
 #### Stage 2:
-After stage 1, the losses all converges and start to lower very slowly, we then increase the loss again. 
+After stage 1, the losses all converged and started to lower very slowly, we then increased the loss again. 
 
 ```Python
 RPN_BBOX_LOSS = 4 -> 6
@@ -57,7 +57,7 @@ MRCNN_BBOX_LOSS = 3.2 -> 4
 MRCNN_MASK_LOSS = 2 -> 3
 ```
 
-After the two stages, we find that the loss is not going to change whatever we set the loss weight. Then we also detect the model on the test dataset, and get the IoU shown below.
+After the two stages, we found that the loss was not going to change whatever we set the loss weight. Then we also detected the model on the test dataset, and got the IoU shown below.
 
 | Input Data | Stage | mIOU    | Background | Roof    | Facade  | Roof Equip\. | Car     | Ground Equip\. |
 |------------|-------|---------|------------|---------|---------|--------------|---------|----------------|
@@ -67,11 +67,11 @@ After the two stages, we find that the loss is not going to change whatever we s
 
 ### Feature Fusion
 
-After we try our best on the thermal channel input fusion, we come up with the idea on how to better extract the thermal information and at the same time give less confusion on the RGB features. The way we try on Mask RCNN is to fusion the RGB feature maps with the thermal feature maps. In this way, we expect the network can handle the feature maps as what is needed for detection and region proposal. 
+After we tried our best on the thermal channel input fusion, we come up with the idea on how to better extract the thermal information and at the same time give less confusion on the RGB features. The way we tried on Mask RCNN was to fusion the RGB feature maps with the thermal feature maps. In this way, we expected the network could handle the feature maps as what was needed for detection and region proposal. 
 
-However, when we try to add one parallel backbone ResNet 101, we find the hardware can not handle this large network, even the largest GPU we can have on GCP with 16 GB memory. We have attempted to use various ways to increase the hardware capacity, for instance to increase the number of GPUs, to add more RAM for the PC, and to use better GPU. None of them worked. 
+However, when we tried to add one parallel backbone ResNet 101, we find the hardware can not handle this large network, even the largest GPU we can have on GCP with 16 GB memory. We have attempted to use various ways to increase the hardware capacity, for instance to increase the number of GPUs, to add more RAM for the PC, and to use better GPU. None of them worked. 
 
-Then we put our eye on reduce the network size. In other words, we have to trade off some network capacity for better thermal information extraction. To reduce the network, we reset the parameters as below:
+Then we put our eye on reduce the network size. In other words, we had to trade off some network capacity for better thermal information extraction. To reduce the network, we reset the parameters as below:
 
 ```Python
 BACKBONE_NETWORK = 'ResNet50' -> 'ResNet 101'
@@ -101,9 +101,9 @@ For this method, we have tried our best to improve the performance by just tunin
 
 ### Input Fusion
 
-For thr input fusion method, we inherit the parameter from RGB input model. However, we also used various training tricks including the weighted loss on different part of the network. Since Mask RCNN is a huge network, training from end to end is slow to converge. However, our dataset is very different to the normal ones (e.g. COCO and ImageNet). We have to train our own parameters. With our effort, the result also seems reasonable and great.
+For thr input fusion method, we inherit the parameter from RGB input model. In addition, we also used various training tricks including the weighted loss on different part of the network. Since Mask RCNN is a huge network, training from end to end is slow to converge. However, our dataset is very different to the normal ones (e.g. COCO and ImageNet). We have to train our own parameters from scratch. With our effort, the result also seems reasonable and great.
 
-However, we can still see some big facade and roof are totally missing in the network. Maybe that is because we still need to make more efforts to include large features in the network. We will try padding and other augmenting methods to further improve the network.
+However, we can still see some big facade and roof are totally missing in the network. Maybe that is because we still need to make more efforts to include large features in the network. We will try padding and other augmenting methods to further improve the network in the future.
 
 <p align="center">
 	<img src="figure/mrcnn/input_fusion_loss.png" height="250"/>

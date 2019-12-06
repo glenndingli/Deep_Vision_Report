@@ -2,6 +2,13 @@
 
 Traditional semantic segmentation task is fully based on visible light imaging input (RGB images), while the thermal information is also available for semantic segmentation in many applications. To utilize both the RGB data and thermal information, we have designed various novel deep convolutional neural networks (DCNNs) that fuzes the RGB information with thermal information for solving the semantic segmentation task.  These models allows the possibility of achieving better semantic segmentation performance when the thermal information is available in addition to RGB data. In our project, we experimented these (DCNNs) with our own dataset of landscape and buildings. In our observation, the fusion of thermal information can help the semantic segmentation task in specific cases, while the fusion of thermal information can also make the DCNNs hard to be trained and deteriorate the prediction.
 
+## Motivation of Investigating Thermal Information
+
++ **Application in saving engergy loss** : Nowadays, saving energy and reducing the greenhouse effect has drawn researchers’ attention all over the world. The U.S. Department of Energy’s Federal Energy Management Program aims to help federal agencies reduce greenhouse gas emissions by 40% by fiscal year 2025 compared to year 2008.
+Particularly, the energy loss from buildings makes up a large portion of all energy consumption, almost 35% of all primary energy generated is consumed by buildings in the U.S. Understanding the source of energy loss in the building is greatly needed for increasing the efficiency of the building energy usage. With the help of thermal cameras, we can easily detect the energy loss from the facade and roof of the buildings, shown in the following figure. To further detect the source of energy loss, we should distinguish if the energy loss come from buildings or not. This requires us to differentiate different components from the images we took so that we can determine if the energy loss is a building energy waste. This means we need to do a sementic segmentation task with both RGB image and thermal information.
+
++ **Thermal information might help detecting undistinguishable objects in RGB image** : Traditional semantic segmentation task is fully based on visible light imaging input (RGB images). This makes the task intrinsically challenging in certain occasions. For example, it is a difficult task for algorithms to precisely distinguish a roof from an adjacent tree with similar color. To overcome this intrinsic limitation of RGB data and further improve the performance of semantic segmentation, other forms of measurement can be added in addition to RGB images to be used as the input of tasks. Different from visible light imaging, thermal imaging cameras are able to see objects that creates heat under various lighting conditions. Thus, adding thermal information might help some applications that needs high segmentation precision, for example, detecting human in autonomous driving cars.
+
 ## Problem Setting
 
 In our semantic segmentation task, we need to classify each pixel in the images into one of the six predefined categories, including background, roof, facade, car, roof equipment, ground equipment, shown in Figure 1. In our problem, the input is a four-channel image, including RGB information and thermal information. The output is a segmentation map, a pixel-level prediction.
@@ -12,11 +19,29 @@ In our semantic segmentation task, we need to classify each pixel in the images 
 
 ## Data
 
-The images in our study is captured by a camera, FLIR Duo Pro R, mounted on a drone. This camera provides a thermal image (640 x 512) and a high-resolution optical image (4000 x 3000) for a single shot through an integrated package, in which the thermal images and RGB images are taken from the same altitude, the same angles, the same place and for the same objects. In order to have an obvious contrast in thermal images, the images were taken in a cold winter when energy loss was easy to detect. Our datasets has two major parts, including school campus view and city view. These two zones have different characteristics of landscape and buildings. The buildings in the campus are more sparse than in city zone. The ground truth are from mannually labeling by students. In total, We have 721 original labeled images (4000 x 3000), which are divided into training dataset (700 images), validation dataset (11 images) and test dataset (10 images). Since our image is in high resolution images and has a large field view, we cropped the images to generate images in smaller size (1500*1500). After processing, we have 6232 images as training dataset and 59 images (1500*1500) as validation dataset.
++ **Original Data** : The images in our study is captured by a camera, FLIR Duo Pro R, mounted on a drone. This camera provides a thermal image (640 x 512) and a high-resolution optical image (4000 x 3000) for a single shot through an integrated package, in which the thermal images and RGB images are taken from the same altitude, the same angles, the same place and for the same objects. In order to have an obvious contrast in thermal images, the images were taken in a cold winter when energy loss was easy to detect. Our datasets has two major parts, including school campus view and city view. These two zones have different characteristics of landscape and buildings. The buildings in the campus are more sparse than in city zone. The ground truth are from mannually labeling by students. In total, We have 721 original labeled images (4000 x 3000), which are divided into training dataset (700 images), validation dataset (11 images) and test dataset (10 images). Since our image is in high resolution images and has a large field view, we cropped the images to generate images in smaller size (1500 x 1500). After processing, we have 6232 images as training dataset and 59 images (1500 x 1500) as validation dataset.
+
++ **Data Preprocessing** : By exploring the whole dataset, we find there exists a great imbalance between the categories. The number of pixels of Class 1 (Roof) or Class 2 (Facade)  is around 100 times larger than that of Class 3 (Ground Equipment) and Class 5 (Roof Equipment). To reduce the imbalance and its negative effects on model training, we add specific data augmentation such as rotation and flip of images containing label-3 and label-5 pixels. Also, we apply weighted sampling during training in order to make the networks have larger probabilities to learn features of Class 3 and 5.
+
 
 ## Methods Overview
 
 We constructed our models based on three previous representative works of segmentation task: U-Net, DeepLabV3 and MaskRCNN. We mainly tried two approaches to fuze the thermal information with the RGB information. In input fusion, we concatenate the thermal image with RGB image as the input of the network. In feature fusion, the thermal image and RGB image are abstracted into feature maps separately and the feature maps are concatenated at certain points. For the feature fusion, we also tried different variants of the structure. The details of experiments are included in sperate pages: [U-Net Experiment](unet.md), [DeepLabV3 Experiment](deeplabv3.md), [Mask-RCNN Experiment](maskrcnn.md).
+
++ **U-Net Based Model Structrue**
+<p align="center">
+	<img src="figure/unetfig.png" height="200"/>
+</p>
+
++ **DeepLabV3 Based Model Structure**
+<p align="center">
+	<img src="figure/deeplabfig.png" height="400"/>
+</p>
+
++ **Mask-RCNN Based Model Structure**
+<p align="center">
+	<img src="figure/maskrcnnfig.png" height="200"/>
+</p>
 
 ## Results and Discussion
 
@@ -55,7 +80,16 @@ Here we present two representative prediction examples from our test dataset.
 
 + **Equipment is Hard to Predict** : In the example B, we present a failure prediction case. All our methods fail to recognize the equipment on the ground in the images. The models are tend to predict this object to other classes, like roof or facade. In some cases, the prediction is a mixture of different classes. One potential reseason is that this equpiment has very similar feature to a building. In addition, this type of equipment has very few representation in our training datasets. Overall, the shape, color and look of the equipment can be very diverse, which needs lot of data to learn the features. However, this specific class has lowest representation in our dataset. 
 
-More examples:
+
+## Limitations and Future Work
+Overall, we have two main limitations in our work. Firstly, we can achieve relatively good segmentation performance on roofs and facades classes, while the prediction for cars, roof equipment and ground equipment segmentation still need to be improved. Secondly, the results showed that adding thermal channels did not significantly improve the results. The fusion of thermal information decrease the performance in some cases, which means we did not train the model very well. Ideally, the model fuzing the thermal information should reach a performance no worse than the RGB baseline model. 
+
+For the first problem, We have tried using data augmentation and weighted loss to improve the prediction on cars and equipments. However, we have not reach a good performance on these specific classes yet. We also tried implement binary classifications on these classes, which did not work well either. The major challenge is in the dataset, in which these classes has little representation. To solve this problem, we need to collect more data of these classes to learn the features.
+
+The thermal information did not show significant help. One potential reason is our thermal image is in lower resolution (640 x 512) compared to the RGB image (4000 x 3000). In our project, we upsampled the thermal images to RGB image size, in which the thermal resolution is already blurred in many cases. In the furture, one potential direction is to downsampling the RGB image to thermal resolution and investigate if the thermal image shows more help. 
+
+
+## More Prediction Samples:
 
 <p align="center">
 	<img src="figure/rr.png" height="1190"/>
